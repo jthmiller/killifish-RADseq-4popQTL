@@ -1,8 +1,6 @@
 # killifish-RADseq-4popQTL
 Repo for the analysis for QTL of PCB resistance in four populations of killifish
 
-
-
 ### Data: 
 /home/jmiller1/compressed.data/qtl.data/titan.bch.msu.edu/20160211_RADSeq_PE/
 
