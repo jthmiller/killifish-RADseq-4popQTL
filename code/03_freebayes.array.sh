@@ -11,6 +11,11 @@
 ## Set environmental variables from file
 export $(grep -v '^#' code/analysis.env | xargs)
 
+set -o allexport
+source code/analysis.env
+set +o allexport
+
+
 ## Echo version to code/array_job_out
 $my_freebayes --version
 $my_bedtools --version
