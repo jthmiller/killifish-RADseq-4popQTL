@@ -10,3 +10,7 @@ Miller, M. R., J. P. Dunham, A. Amores, W. A. Cresko, and E. A. Johnson. 2007. R
 Reid, N. M., D. A. Proestou, B. W. Clark, W. C. Warren, J. K. Colbourne, J. R. Shaw, S. I. Karchner, M. E. Hahn, D. Nacci, M. F. Oleksiak, D. L. Crawford, and A. Whitehead. 2016. The genomic landscape of rapid repeated evolutionary adaptation to toxic pollution in wild fish. Science 354:1305–1308.
 Whitehead, A., W. Pilcher, D. Champlin, and D. Nacci. 2012. Common mechanism underlies repeated evolution of extreme pollution tolerance. P Roy Soc B-Biol Sci 279:427–433.
 Xu, S. 2008. Quantitative Trait Locus Mapping Can Benefit From Segregation Distortion. Genetics 180:2201–2208. Genetics.
+
+Whitehead, A., D. A. Triant, D. Champlin, and D. Nacci. 2010. Comparative transcriptomics implicates mechanisms of evolved pollution tolerance in a killifish population. Molecular Ecology 19:5186–5203
+Oziolor, E. M., E. Bigorgne, L. Aguilar, S. Usenko, and C. W. Matson. 2014. Evolved resistance to PCB- and PAH-induced cardiac teratogenesis, and reduced CYP1A activity in Gulf killifish (Fundulus grandis) populations from the Houston Ship Channel, Texas. Aquat. Toxicol. 150:210–219.
+Oziolor, E. M., N. M. Reid, S. Yair, K. M. Lee, S. Guberman VerPloeg, P. C. Bruns, J. R. Shaw, A. Whitehead, and C. W. Matson. 2019. Adaptive introgression enables evolutionary rescue from extreme environmental pollution. Science 364:455–457.
