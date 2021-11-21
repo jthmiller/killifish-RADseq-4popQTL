@@ -4,7 +4,7 @@ Background :
 We used balanced selective genotyping (or two-tail genotyping) (Lebowitz et al. 1987; Lander and Botstein 1989), where we selected ~48 individuals from each of the most sensitive and most resistant ends of the phenotypic distribution for each family. 
 
 
-![plot](./figs/pheno_dist_map.png)
+![plot](figs/pheno_dist_map.png)
 
 
 Genotyping: 
