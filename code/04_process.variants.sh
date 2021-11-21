@@ -1,20 +1,8 @@
 #!/bin/bash
 
-PATH=$HOME/bin/plink:$PATH
+module load vcftools/0.1.13
+vcftools --version
 
-base='/home/jmiller1/QTL_Map_Raw/popgen/'
-vcfdir=$base/vcf
-outfiles=$base/outfiles
-infiles=$base/infiles
-indpops=$base/plinkfiles/ind.pops
-pheno=$infiles/SOMM.FAM.2.txt
-
-init_flagset='--allow-extra-chr --autosome-num 24 --allow-no-sex --family'
-flagset='--set-missing-var-ids @:#  --allow-extra-chr --autosome-num 24 --allow-no-sex --family --chr 1-24'
-geno='--geno .25'
-maf='--mac 5'
-
-module load vcftools
 
 ## vcftools filters
 ## $maf $maxf

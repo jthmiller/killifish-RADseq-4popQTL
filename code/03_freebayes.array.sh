@@ -1,28 +1,26 @@
 #!/bin/bash -l
 #SBATCH -J array_job
-#SBATCH -o /home/jmiller1/QTL_Map_Raw/QTL_scripts/out_er/array_job_out_%A_%a.txt
-#SBATCH -e /home/jmiller1/QTL_Map_Raw/QTL_scripts/out_er/array_job_err_%A_%a.txt
+#SBATCH -o code/out_er/array_job_out_%A_%a.txt
+#SBATCH -e code/out_er/array_job_err_%A_%a.txt
 #SBATCH --array=1-8577
 #SBATCH -p med
-#SBATCH --mem=30000
+#SBATCH --mem=30g
 #SBATCH -t 48:00:00
-###### number of nodes
-###### number of processors
 #SBATCH --cpus-per-task=6
 
 ## Set environmental variables from file
 export $(grep -v '^#' code/analysis.env | xargs)
 
+## Echo version to code/array_job_out
 $my_freebayes --version
 $my_bedtools --version
+$my_bamtools --version
 
+scaf=$(sed -n "$SLURM_ARRAY_TASK_ID p" $all_scaf | cut -f1)
+endpos=$(sed -n "$SLURM_ARRAY_TASK_ID p" $all_scaf | cut -f2)
 
-scafnum=$(expr $SLURM_ARRAY_TASK_ID + -1)
-scaf=Scaffold$scafnum
-endpos=$(expr $(grep -P "$scaf\t" ${bwagenind}.fai | cut -f 2) - 1) || echo "ref index missing"
 region=$scaf:1..$endpos
-
-echo $region
+echo $er_out_dir/$region
 
 outfile=$scaf.vcf
 
