@@ -7,12 +7,11 @@ Garrison, E. 2018. freebayes: Bayesian haplotype-based genetic polymorphism disc
 Kosambi, D. D. 1943. The estimation of map distances from recombination values. Annals of Eugenics 12:172–175.
 Miller, J. T., N. M. Reid, D. E. Nacci, and A. Whitehead. 2019. Developing a High-Quality Linkage Map for the Atlantic Killifish Fundulus heteroclitus. G3 9:2851–2862.
 Miller, M. R., J. P. Dunham, A. Amores, W. A. Cresko, and E. A. Johnson. 2007. Rapid and cost-effective polymorphism identification and genotyping using restriction site associated DNA (RAD) markers. Genome Research 17:240–248.
-Reid, N. M., D. A. Proestou, B. W. Clark, W. C. Warren, J. K. Colbourne, J. R. Shaw, S. I. Karchner, M. E. Hahn, D. Nacci, M. F. Oleksiak, D. L. Crawford, and A. Whitehead. 2016. The genomic landscape of rapid repeated evolutionary adaptation to toxic pollution in wild fish. Science 354:1305–1308.
-Whitehead, A., W. Pilcher, D. Champlin, and D. Nacci. 2012. Common mechanism underlies repeated evolution of extreme pollution tolerance. P Roy Soc B-Biol Sci 279:427–433.
-Xu, S. 2008. Quantitative Trait Locus Mapping Can Benefit From Segregation Distortion. Genetics 180:2201–2208. Genetics.
-
-Whitehead, A., D. A. Triant, D. Champlin, and D. Nacci. 2010. Comparative transcriptomics implicates mechanisms of evolved pollution tolerance in a killifish population. Molecular Ecology 19:5186–5203
 Oziolor, E. M., E. Bigorgne, L. Aguilar, S. Usenko, and C. W. Matson. 2014. Evolved resistance to PCB- and PAH-induced cardiac teratogenesis, and reduced CYP1A activity in Gulf killifish (Fundulus grandis) populations from the Houston Ship Channel, Texas. Aquat. Toxicol. 150:210–219.
 Oziolor, E. M., N. M. Reid, S. Yair, K. M. Lee, S. Guberman VerPloeg, P. C. Bruns, J. R. Shaw, A. Whitehead, and C. W. Matson. 2019. Adaptive introgression enables evolutionary rescue from extreme environmental pollution. Science 364:455–457.
-Tang, H., X. Zhang, C. Miao, J. Zhang, R. Ming, J. C. Schnable, P. S. Schnable, E. Lyons, and J. Lu. 2015. ALLMAPS: robust scaffold ordering based on multiple maps. Genome Biol. 16:3.
+Reid, N. M., D. A. Proestou, B. W. Clark, W. C. Warren, J. K. Colbourne, J. R. Shaw, S. I. Karchner, M. E. Hahn, D. Nacci, M. F. Oleksiak, D. L. Crawford, and A. Whitehead. 2016. The genomic landscape of rapid repeated evolutionary adaptation to toxic pollution in wild fish. Science 354:1305–1308.
 Rubin, C.-J., H.-J. Megens, A. M. Barrio, K. Maqbool, S. Sayyab, D. Schwochow, C. Wang, Ö. Carlborg, P. Jern, C. B. Jørgensen, A. L. Archibald, M. Fredholm, M. A. M. Groenen, and L. Andersson. 2012. Strong signatures of selection in the domestic pig genome. PNAS 109:19529–19536. National Academy of Sciences.
+Tang, H., X. Zhang, C. Miao, J. Zhang, R. Ming, J. C. Schnable, P. S. Schnable, E. Lyons, and J. Lu. 2015. ALLMAPS: robust scaffold ordering based on multiple maps. Genome Biol. 16:3.
+Whitehead, A., D. A. Triant, D. Champlin, and D. Nacci. 2010. Comparative transcriptomics implicates mechanisms of evolved pollution tolerance in a killifish population. Molecular Ecology 19:5186–5203
+Whitehead, A., W. Pilcher, D. Champlin, and D. Nacci. 2012. Common mechanism underlies repeated evolution of extreme pollution tolerance. P Roy Soc B-Biol Sci 279:427–433.
+Xu, S. 2008. Quantitative Trait Locus Mapping Can Benefit From Segregation Distortion. Genetics 180:2201–2208. Genetics.
