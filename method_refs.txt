@@ -2,6 +2,7 @@ Barnett, D. W., E. K. Garrison, A. R. Quinlan, M. P. Stromberg, and G. T. Marth.
 Broman, K. W., H. Wu, S. Sen, and G. A. Churchill. 2003. R/qtl: QTL mapping in experimental crosses. Bioinformatics 19:889–890.
 Broman, K. W., and S. Sen. 2009. A guide to QTL mapping with R/qtl. Springer, Dordrecht.
 Chang, C. C., C. C. Chow, L. C. Tellier, S. Vattikuti, S. M. Purcell, and J. J. Lee. 2015. Second-generation PLINK: rising to the challenge of larger and richer datasets. Gigascience 4.
+Clark, B. W., C. W. Matson, D. Jung, and R. T. Di Giulio. 2010. AHR2 mediates cardiac teratogenesis of polycyclic aromatic hydrocarbons and PCB-126 in Atlantic killifish (Fundulus heteroclitus). Aquat. Toxicol. 99:232–240.
 Faust, G. G., and I. M. Hall. 2014. SAMBLASTER: Fast duplicate marking and structural variant read extraction. Pp. 2503–2505 in Bioinformatics.
 Garrison, E. 2018. freebayes: Bayesian haplotype-based genetic polymorphism discovery and genotyping.
 Kosambi, D. D. 1943. The estimation of map distances from recombination values. Annals of Eugenics 12:172–175.
