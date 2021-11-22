@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+### Author: Mike Miller
+
 if ($#ARGV == 3) {
         $file1 = $ARGV[0]; #first read
         $file2 = $ARGV[1]; #second read

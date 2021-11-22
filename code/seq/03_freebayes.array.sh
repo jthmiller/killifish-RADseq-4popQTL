@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -J array_job
-#SBATCH -o code/out_er/array_job_out_%A_%a.txt
-#SBATCH -e code/out_er/array_job_err_%A_%a.txt
+#SBATCH -o code/slurm_out/array_job_out_%A_%a.txt
+#SBATCH -e code/slurm_out/array_job_err_%A_%a.txt
 #SBATCH --array=1-8577
 #SBATCH -p med
 #SBATCH --mem=30g
@@ -9,14 +9,14 @@
 #SBATCH --cpus-per-task=6
 
 ## Set environmental variables from file
-export $(grep -v '^#' code/analysis.env | xargs)
+export $(grep -v '^#' code/seq/analysis.env | xargs)
 
 set -o allexport
-source code/analysis.env
+source code/seq/analysis.env
 set +o allexport
 
 
-## Echo version to code/array_job_out
+## Echo version to code/seq/array_job_out
 $my_freebayes --version
 $my_bedtools --version
 $my_bamtools --version

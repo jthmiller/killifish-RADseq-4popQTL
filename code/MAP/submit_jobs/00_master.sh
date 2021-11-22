@@ -45,7 +45,8 @@ Rscript $perms/06_combine_permutations.R --vanilla 'NBH' "_all_perms_bin_mr.rsav
 Rscript $perms/06_combine_permutations.R --vanilla 'NBH' "_all_perms_bin_imp.rsave"
 ################################################################################
 
-### TWO LOCUS SCAN $1=population $2=number of cores to use
+### TWO LOCUS SCAN 
+### 07_bin_em_scan2.sh <population> <number of cores to use>
 bashsc="$HOME/QTL_agri/MAP/bash"
 sbatch -J "EMB.NBH" --mem=60G -p low -t 13:00:00 $bashsc/07_bin_em_scan2.sh 'NBH' 22
 sbatch -J "MRB.NBH" --mem=60G -p high -t 13:00:00 $bashsc/07_bin_mr_scan2.sh 'NBH' 22

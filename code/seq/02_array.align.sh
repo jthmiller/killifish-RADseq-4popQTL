@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -J array_job
-#SBATCH -o code/out_er/array_job_out_%A_%a.txt
-#SBATCH -e code/out_er/array_job_err_%A_%a.txt
+#SBATCH -o code/seq/slurm_out/array_job_out_%A_%a.txt
+#SBATCH -e code/seq/slurm_out/array_job_err_%A_%a.txt
 #SBATCH --array=1-96
 #SBATCH -p hi
 #SBATCH --mem=30000

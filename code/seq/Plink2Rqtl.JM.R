@@ -2,7 +2,7 @@
 args = commandArgs(trailingOnly=TRUE)
 
 library(qtl)
-source("code/PLINK2RQTL.f2.R")
+source("code/seq/PLINK2RQTL.f2.R")
 
 dir <- args[1]
 name <- args[2]
