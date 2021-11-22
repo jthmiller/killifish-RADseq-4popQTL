@@ -17,6 +17,9 @@ e16cffe94c9e65cbbcf087ed5b935627  SOMM088_ER_GGTTCA_L008_R1_001.fastq.gz
 /home/jmiller1/genomes_jm/mapped/ALLMAPS_OUT/unsplit_merge.fasta
 Chromosome assembled genome from Miller et al 2018. 
 
+### Chain files for updating popgen
+/home/jmiller1/genomes_jm/mapped/unsplit_merge.chain
+
 ### Demultiplex
 ### Depends: BarcodeSplitListBestRadPairedEnd.pl  (author: Mike Miller)
 sbatch code/seq/01_BP_run_BestRadSplit14.sh  
