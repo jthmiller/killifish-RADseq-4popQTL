@@ -15,7 +15,7 @@ outdir=${2}
 fq1=$(find $indir -name "*RA*fastq.gz" | sed -n $(echo $SLURM_ARRAY_TASK_ID)p)
 fq2=$(echo $fq1 | sed 's/RA/RB/')
 
-lib=$(echo $fq1 | sed 's/_/\t/'| cut -f 1)
+lib=$(echo $fq1 | sed 's/_/\t/'| cut -f 1) ## ${fq1%_.*}
 root=$(echo $fq1 | sed 's/.*\///' | sed 's/_R._/_/' | cut -c 1-8,11-18)
 
 ### Set the read group information
@@ -41,3 +41,7 @@ $my_bwa mem $bwagenind -t 6 -R $rg $fq1 $fq2 | \
     $my_samtools sort - -T /scratch/$tempsort -O bam -o $outfile \
 && $my_samtools index $outfile \
 || echo 'alignment failure'
+
+#  -S       ignored (input format is auto-detected)
+#  -u       uncompressed BAM output (implies -b)
+#  -h       include header in SAM output
