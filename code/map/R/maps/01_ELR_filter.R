@@ -154,7 +154,7 @@ keeps <- rownames(keeps[keeps$chr %in% 1:24,])
 linked_marks <- function(cross, X, LOD = 10, RF = 0.1){
  crossX <- est.rf(subset(cross, chr=X))
  crossX <- formLinkageGroups(crossX, max.rf = RF, min.lod = LOD, reorgMarkers = TRUE)
- a <- markernames(crossX, chr=1:2)
+ a <- markernames(crossX, chr=1:4)
  b <- markernames(crossX, chr=2)
  return(list(keep=a,switch=b))
 }

@@ -1,7 +1,14 @@
 #!/bin/R
 
+setwd('/home/jmiller1/QTL_agri')
+basedir <- "/Users/jeffreymiller/Documents/Projects/Killifish/QTL_agri"
+
+
 ### Split dataset: A: mapping cross B: Genotype validation for exploring causative variation
+
+
 pop <- 'NBH'
+setwd('/home/jmiller1/QTL_agri')
 source("/home/jmiller1/QTL_agri/MAP/R/control_file.R")
 libs2load<-c('devtools','qtl',"ASMap","qtlTools","TSP","TSPmap","scales","doParallel")
 suppressMessages(sapply(libs2load, require, character.only = TRUE))
@@ -50,7 +57,7 @@ cross$pheno$sex <- sex.vec
 ### RAW DATA SET ###############################################################
 mapfile <- paste0(pop,'_raw')
 filename <- file.path(mpath,mapfile)
-write.cross(cross, filestem=filename, format="csv")
+# write.cross(cross, filestem=filename, format="csv")
 #cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
 
@@ -65,6 +72,27 @@ i <- 1 ; plotit(cross,'_raw_nopar')
 #rug(cg[lower.tri(cg)])
 #dev.off()
 ################################################################################
+
+chr2_resi <- subset(cross, chr = 2)
+chr2_resi <- subset(chr2_resi, ind = cross$pheno$bin == 0)
+chr2_resi  <- est.rf(chr2_resi)
+chr2_resi  <- tspOrder(cross = chr2_resi , hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+plotit(chr2_resi,'chr2_resi')
+
+png(paste0('~/public_html/',pop,'chr2_res.png'),height=2500,width=2500)
+plotRF(chr2_resi, chr = 2)
+dev.off()
+
+chr2_sens <- subset(cross, chr = 2)
+chr2_sens <- subset(chr2_sens, ind= cross$pheno$bin == 1)
+chr2_sens  <- est.rf(chr2_sens)
+chr2_sens  <- tspOrder(cross = chr2_sens , hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+
+plotit(chr2_sens,'chr2_sens')
+
+png(paste0('~/public_html/',pop,'chr2_sens.png'),height=2500,width=2500)
+plotRF(chr2_sens, chr = 2)
+dev.off()
 
 ################################################################################
 ### FILTER
@@ -92,7 +120,7 @@ cross <- subset(cross, ind=!cross$pheno$ID %in% pars)
 ################################################################################
 mapfile <- paste0(pop,'_nopar_nofilt')
 filename <- file.path(mpath,mapfile)
-write.cross(cross, filestem=filename, format="csv")
+# write.cross(cross, filestem=filename, format="csv")
 # cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
 
@@ -146,7 +174,7 @@ keeps <- rownames(keeps[keeps$chr %in% 1:24,])
 linked_marks <- function(cross, X, LOD = 10, RF = 0.1){
  crossX <- est.rf(subset(cross, chr=X))
  crossX <- formLinkageGroups(crossX, max.rf = RF, min.lod = LOD, reorgMarkers = TRUE)
- a <- markernames(crossX, chr=1:2)
+ a <- markernames(crossX, chr=1:4)
  b <- markernames(crossX, chr=2)
  return(list(keep=a,switch=b))
 }
@@ -167,9 +195,106 @@ sum(nmar(cross))
 ### WRITE THE ABOVE CROSS OBJECT ###############################################
 mapfile <- paste0(pop,'_filtered_linked_nopar')
 filename <- file.path(mpath,mapfile)
-write.cross(cross,filestem=filename,format="csv")
-#cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
+# write.cross(cross,filestem=filename,format="csv")
+cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
+
+cross2_35k  <- subset(cross,chr = 2)
+
+
+
+crossX <- formLinkageGroups(cross2_35k, reorgMarkers = TRUE)
+
+
+cross2_35k  <- switchAlleles(cross2_35k, markernames(crossX, chr =2))
+
+cross2_35k  <- tspOrder(cross = cross2_35k, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+plotit(cross2_35k)
+
+
+
+
+chr2_resi <- subset(cross2_35k, ind = cross$pheno$bin == 0)
+chr2_resi <- subset(chr2_resi, ind = chr2_resi$pheno$ID[which(!chr2_resi$pheno$ID == 'NBH_5830') ])
+chr2_resi  <- tspOrder(cross = chr2_resi, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+i<- 0 ; plotit(chr2_resi)
+
+chr2_sens <- subset(cross2_35k, ind = cross$pheno$bin == 1)
+chr2_sens  <- tspOrder(cross = chr2_sens, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+i<-1 ; plotit(chr2_sens)
+
+
+for (chr in 1:24){
+
+cross2_35k  <- subset(cross,chr = chr)
+chr2_resi <- subset(cross2_35k, ind = cross$pheno$bin == 0)
+chr2_sens <- subset(cross2_35k, ind = cross$pheno$bin == 1)
+
+res <- checkAlleles(chr2_resi,threshold=7)$marker
+sen <- checkAlleles(chr2_sens,threshold=7)$marker
+
+chr2_resi  <- switchAlleles(chr2_resi, res)
+chr2_sens  <- switchAlleles(chr2_sens, sen)
+
+chr2_resi  <- tspOrder(cross = chr2_resi, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+chr2_sens  <- tspOrder(cross = chr2_sens, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+
+
+png(paste0('~/public_html/',pop,'_',chr,'.png'),height=500,width=2000)
+
+ par(mfrow=c(1,2))
+
+  Y <- c(0, as.numeric(gsub(".*:","",markernames(chr2_resi))))/1000000
+  X <- 1:length(Y)
+  X <- if( cor(X,Y, use="complete.obs") > 0){ 
+      X 
+    }else{ rev(X) }
+
+  plot(c(1,length(X)),c(0,max(Y)),type="n", xlab=paste('chr',chr), ylab='physical position')
+  points(X,Y,pch=19)
+
+  Y <- c(0, as.numeric(gsub(".*:","",markernames(chr2_sens))))/1000000
+  X <- 1:length(Y)
+  X <- if( cor(X,Y, use="complete.obs") > 0){ 
+    X 
+  }else{ rev(X) }
+
+  plot(c(1,length(X)),c(0,max(Y)),type="n", xlab=paste('chr',chr), ylab='physical position')
+  points(X,Y,pch=19)
+
+dev.off()
+}
+
+
+
+scan_bin <- scanone(cross2_35k, pheno.col=4, method="mr", model="bin", n.cluster = cores)
+maxmark <- rownames(summary(scan_bin))
+
+gt1 <- cross2_35k$pheno$ID[which(pull.geno(cross2_35k)[,maxmark] == 1)]
+gt2 <- cross2_35k$pheno$ID[which(pull.geno(cross2_35k)[,maxmark] == 2)]
+gt3 <- cross2_35k$pheno$ID[which(pull.geno(cross2_35k)[,maxmark] == 3)]
+
+gt1 <- subset(cross2_35k, ind = gt1)
+gt1  <- tspOrder(cross = gt1, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+i<-11 ; plotit(gt1,marker = maxmark)
+
+gt2 <- subset(cross2_35k, ind = gt2)
+gt2  <- tspOrder(cross = gt2, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+i<-12 ; plotit(gt2,marker = maxmark)
+
+gt3 <- subset(cross2_35k, ind = gt3)
+gt3  <- tspOrder(cross = gt3, hamiltonian = TRUE, method="concorde",concorde_path='/home/jmiller1/concorde_build/TSP/')
+i<-13 ; plotit(gt3,marker = maxmark)
+
+
+
+scan(chr2_resi)
+
+
+
+
+
+
 
 ################################################################################
 ## Imputed
@@ -228,9 +353,15 @@ i <- 100 ; plotit(cross_reorder_imp,'cross_reori')
 ################################################################################
 mapfile <- paste0(pop,'_reorder_imp_nopar')
 filename <- file.path(mpath,mapfile)
-write.cross(cross_reorder_imp,filestem=filename,format="csv")
-#cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
+# write.cross(cross_reorder_imp,filestem=filename,format="csv")
+cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
+
+## Figure S2
+png(paste0('~/public_html/',pop,'_phy_order.png'))
+
+
+
 
 ################################################################################
 png(paste0('~/public_html/',pop,'all_rf.png'),height=2500,width=2500)
@@ -270,7 +401,7 @@ summary(pull.map(cross))
 ## FINALMAP
 mapfile <- paste0(pop,'_reorder_imp_nopar')
 filename <- file.path(mpath,mapfile)
-write.cross(cross,filestem=filename,format="csv")
+# write.cross(cross,filestem=filename,format="csv")
 #cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
 
@@ -317,8 +448,8 @@ summary(pull.map(noperms))
 ################################################################################
 mapfile <- paste0(pop,'_reorder_noimp_nopar')
 filename <- file.path(mpath,mapfile)
-write.cross(cross_reorder_imp,filestem=filename,format="csv")
-#cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
+# write.cross(cross_reorder_imp,filestem=filename,format="csv")
+cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
 
 #save.image(file.path(mpath,paste0(pop,'_imputed.rsave')))

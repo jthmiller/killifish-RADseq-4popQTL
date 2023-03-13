@@ -1,0 +1,135 @@
+# UG
+
+Warning messages:
+1: In fitqtlengine(pheno = pheno, qtl = qtl, covar = covar, formula = formula,  :
+  Dropping 179 individuals with missing phenotypes.
+
+2: In getsex(cross) :
+  179 individuals with missing sex; assuming they're female
+3: In fitqtlengine(pheno = pheno, qtl = qtl, covar = covar, formula = formula,  :
+  Didn't converge.
+4: In fitqtlengine(pheno = pheno, qtl = qtl, covar = covar, formula = formula,  :
+  Didn't converge.
+5: In fitqtlengine(pheno = pheno, qtl = qtl, covar = covar, formula = formula,  :
+  Didn't converge.
+> fit_hk_bin_noperm_ug
+$result.full
+      df SS MS     LOD     %var Pvalue(Chi2) Pvalue(F)
+Model  6 NA NA 25.1726 72.02591            0        NA
+Error 84 NA NA      NA       NA           NA        NA
+Total 90 NA NA      NA       NA           NA        NA
+
+$result.drop
+        df Type III SS       LOD     %var F value Pvalue(Chi2) Pvalue(F)
+2@6.1    2          NA 14.771156 31.09996      NA 1.665335e-15        NA
+8@112.8  2          NA  7.050920 11.99472      NA 8.893649e-08        NA
+18@37.3  2          NA  6.209002 10.32757      NA 6.180137e-07        NA
+attr(,"formulas")
+[1] "y ~ Q3 + Q6" "y ~ Q1 + Q6" "y ~ Q1 + Q3"
+attr(,"lods")
+[1] 10.40145 18.12168 18.96360
+
+$ests
+$ests$ests
+ Intercept     2@6.1a     2@6.1d   8@112.8a   8@112.8d   18@37.3a   18@37.3d
+-0.1304153 -6.5857820  2.6172082  2.4979218 -0.7834451  5.4374295  2.1265705
+
+$ests$covar
+           Intercept     2@6.1a     2@6.1d   8@112.8a   8@112.8d   18@37.3a
+Intercept  1.2149853  0.7161476 -1.1763978 -0.2164296  0.1370458  0.6213734
+2@6.1a     0.7161476  6.9913692 -0.5528032 -1.9539197  1.7351921 -4.5066390
+2@6.1d    -1.1763978 -0.5528032  5.7603082  0.9569524 -0.7317925 -0.6615042
+8@112.8a  -0.2164296 -1.9539197  0.9569524  2.3921117 -1.2210607  2.0382455
+8@112.8d   0.1370458  1.7351921 -0.7317925 -1.2210607  2.7911212 -1.6197921
+18@37.3a   0.6213734 -4.5066390 -0.6615042  2.0382455 -1.6197921  6.6114312
+18@37.3d  -0.9826420 -2.8593010 -1.9341880  1.2258877 -0.9800873  1.0523769
+            18@37.3d
+Intercept -0.9826420
+2@6.1a    -2.8593010
+2@6.1d    -1.9341880
+8@112.8a   1.2258877
+8@112.8d  -0.9800873
+18@37.3a   1.0523769
+18@37.3d   5.9700286
+
+
+$lod
+[1] 25.1726
+
+attr(,"class")
+[1] "fitqtl"
+attr(,"method")
+[1] "hk"
+attr(,"model")
+[1] "binary"
+attr(,"formula")
+[1] "y ~ Q1 + Q3 + Q6"
+attr(,"nind")
+[1] 91
+attr(,"matrix.rank")
+[1] 7
+attr(,"matrix.ncol")
+[1] 7
+
+
+## noperm
+
+$result.full
+      df SS MS      LOD     %var Pvalue(Chi2) Pvalue(F)
+Model  6 NA NA 24.36328 70.85639            0        NA
+Error 84 NA NA       NA       NA           NA        NA
+Total 90 NA NA       NA       NA           NA        NA
+
+$result.drop
+        df Type III SS       LOD      %var F value Pvalue(Chi2) Pvalue(F)
+2@6.1    2          NA 13.015313 27.167513      NA 9.658940e-14        NA
+8@136.7  2          NA  6.194028 10.729107      NA 6.396936e-07        NA
+18@36.6  2          NA  4.693337  7.813126      NA 2.026112e-05        NA
+attr(,"formulas")
+[1] "y ~ Q3 + Q6" "y ~ Q1 + Q6" "y ~ Q1 + Q3"
+attr(,"lods")
+[1] 11.34796 18.16925 19.66994
+
+$ests
+$ests$ests
+  Intercept      2@6.1a      2@6.1d    8@136.7a    8@136.7d    18@36.6a
+ 0.03622556 -4.45197845  2.50945341  1.32852548  0.01850343  3.67952060
+   18@36.6d
+ 1.48023127
+
+$ests$covar 
+            Intercept      2@6.1a      2@6.1d   8@136.7a   8@136.7d    18@36.6a
+Intercept  0.49179656  0.27467373 -0.33003269 -0.0950150  0.1271683 -0.05882605
+2@6.1a     0.27467373  2.19684023  0.02746624  0.1124190 -0.3658933 -1.14436645
+2@6.1d    -0.33003269  0.02746624  2.66003165  0.4813115 -0.2338574 -0.35912413
+8@136.7a  -0.09501500  0.11241904  0.48131151  1.1202299 -0.4473911  0.53690587
+8@136.7d   0.12716831 -0.36589325 -0.23385743 -0.4473911  1.9918858 -0.42093880
+18@36.6a  -0.05882605 -1.14436645 -0.35912413  0.5369059 -0.4209388  2.21439650
+18@36.6d  -0.24359712 -0.43829152 -0.93073125  0.3219550 -0.5314025  0.56889197
+            18@36.6d
+Intercept -0.2435971
+2@6.1a    -0.4382915
+2@6.1d    -0.9307313
+8@136.7a   0.3219550
+8@136.7d  -0.5314025
+18@36.6a   0.5688920
+18@36.6d   2.4618479
+
+
+$lod
+[1] 24.36328
+
+attr(,"class")
+[1] "fitqtl"
+attr(,"method")
+[1] "hk"
+attr(,"model")
+[1] "binary"
+attr(,"formula")
+[1] "y ~ Q1 + Q3 + Q6"
+attr(,"nind")
+[1] 91
+attr(,"matrix.rank")
+[1] 7
+attr(,"matrix.ncol")
+[1] 7

@@ -1,4 +1,8 @@
 #!/bin/R
+
+setwd('/home/jmiller1/QTL_agri')
+basedir <- "/Users/jeffreymiller/Documents/Projects/Killifish/QTL_agri"
+
 pop <- 'NEW'
 source("/home/jmiller1/QTL_agri/MAP/R/control_file.R")
 libs2load<-c('devtools','qtl',"ASMap","qtlTools","TSP","TSPmap","scales","doParallel")
@@ -81,12 +85,17 @@ write.cross(cross,filestem=fl,format="csv")
 #cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 ################################################################################
 
+## Keep highest lod marker in final crosses to get the markers close to genomic positions
+prescan_bin <- scanone(cross, pheno.col=4, method="mr", model="bin", n.cluster = cores)
+keeps <- rownames(summary(prescan_bin))
+################################################################################
+
 ################################################################################
 ## Drop unlinked markers
 linked_marks <- function(cross, X, LOD = 10, RF = 0.1){
  crossX <- est.rf(subset(cross, chr=X))
  crossX <- formLinkageGroups(crossX, max.rf = RF, min.lod = LOD, reorgMarkers = TRUE)
- a <- markernames(crossX, chr=1:2)
+ a <- markernames(crossX, chr=1:4)
  b <- markernames(crossX, chr=2)
  return(list(keep=a,switch=b))
 }

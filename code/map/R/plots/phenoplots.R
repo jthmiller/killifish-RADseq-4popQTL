@@ -1,14 +1,18 @@
+
+setwd('/home/jmiller1/QTL_agri')
+basedir <- "/Users/jeffreymiller/Documents/Projects/Killifish/QTL_agri"
+
 pop <- 'NBH'
 source("/home/jmiller1/QTL_agri/MAP/R/control_file.R")
 libs2load<-c('devtools','qtl',"ASMap","qtlTools","TSP","TSPmap","scales","doParallel")
 suppressMessages(sapply(libs2load, require, character.only = TRUE))
 mpath <- '/home/jmiller1/QTL_agri/data'
 
-cross <- elr_cross
-qtlscan <- elr_sone_bin
-chr <- 18
+#cross <- elr_cross
+#qtlscan <- elr_sone_bin
+#chr <- 18
 
-plot_pheno_effect <- function(cross, qtlscan, chr, pltnme){
+plot_pheno_effect <- function(cross, qtlscan, chr, pltnme, ptcolor){
 
  qtlpos <- summary(qtlscan)[chr,]
 
@@ -73,6 +77,8 @@ plot_pheno_effect(cross = new_cross, qtlscan = new_sone_bin, chr = 2, pltnme = '
 plot_pheno_effect(cross = brp_cross, qtlscan = brp_sone_bin, chr = 2, pltnme = 'brp_chr2_phenoplot')
 plot_pheno_effect(cross = elr_cross, qtlscan = elr_sone_bin, chr = 2, pltnme = 'elr_chr2_phenoplot')
 
+
+
 ## plot chr18
 plot_pheno_effect(cross = nbh_cross, qtlscan = nbh_sone_bin, chr = 18, pltnme = 'nbh_chr18_phenoplot')
 plot_pheno_effect(cross = new_cross, qtlscan = new_sone_bin, chr = 18, pltnme = 'new_chr18_phenoplot')
@@ -89,3 +95,69 @@ plot_pheno_effect(cross = elr_cross, qtlscan = elr_sone_bin, chr = 13, pltnme = 
 plot_pheno_effect(cross = nbh_cross, qtlscan = nbh_sone_bin, chr = 11, pltnme = 'nbh_chr11_phenoplot')
 plot_pheno_effect(cross = new_cross, qtlscan = new_sone_bin, chr = 11, pltnme = 'new_chr11_phenoplot')
 plot_pheno_effect(cross = brp_cross, qtlscan = brp_sone_bin, chr = 11, pltnme = 'brp_chr11_phenoplot')
+
+
+
+ptcolor = '18:17486643'
+
+plot_pheno_effect_col <- function(cross, qtlscan, chr, pltnme, ptcolor, ptchr){
+
+ qtlpos <- summary(qtlscan)[chr,]
+
+ mark <- find.marker(cross, chr,  qtlpos$pos)
+
+ genos <- pull.geno(cross, chr)[,mark]
+
+ gcolr <- pull.geno(cross)[,ptcolor]
+
+ pheno <- pull.pheno(cross,4)
+
+ gp <- cor(genos, pheno)
+
+ if (gp < 0 ) genos <- factor(genos, labels = c('SS','RS','RR'))
+
+ if (gp > 0 ) genos <- factor(genos, labels = c('RR','RS','SS'))
+
+ pheno <- ifelse(pheno == 1,0,1)
+
+ gnt <- c('RR','RS','SS')
+
+ propr <- sapply(gnt,function(x){
+    tab <- table(factor(pheno[which(genos == x)], levels = c(0,1)))
+    answer <- tab['1']/(tab['0']+tab['1'])
+    return(ifelse(answer == 'Inf', 1, answer))
+ })
+
+ names(propr) <- gnt
+ genos <- as.numeric(factor(genos, levels = gnt))
+
+
+ plot_test_svg(pltnme)
+ plot(x = c(0.75,3.25), y = c(0,1), ylim=c(-0.1,1.1), type = 'n', lwd = 5, yaxt="n", xaxt="n", ylab = '', xlab = '')
+ ## title( ylab = 'Proportion Resistant', xlab = 'Embryo Genotype', cex = 2 )
+ points(jitter(genos, amount = 0.1), jitter(pheno, amount = 0.1), pch = 19, , col = as.numeric(as.factor(gcolr))+ 1)
+ #lines(x = c(1,2,3) + 0.1, y = as.numeric(propr), lwd = 5)
+ #points(1:3 + 0.1, as.numeric(propr) , pch=22, lwd = 3, bg = 'white', cex = 4)
+ box(lwd=3)
+ axis(1, at=c(1,2,3),labels=c('RR','RS','SS'), las=0, cex.axis=2, lwd = 2, line = 1)
+ axis(2, at=c(0,0.5,1),labels=c(0,0.5,1), las=2, cex.axis=2, lwd = 2)
+ axis(4, at=c(0,1),labels=c('S','R'), las=2, cex.axis=2, lwd = 2)
+ dev.off()
+}
+
+
+plot_test_svg <- function(X='test',...) { svg(paste0('~/public_html/',X,'.svg'),...) }
+
+plot_pheno_effect_col(cross = nbh_cross, qtlscan = nbh_sone_bin, chr = 2, pltnme = 'nbh_chr2_phenoplot', ptcolor = ptcolor)
+
+
+
+
+dfr <- data.frame(cbind( genos,gcolr,cross$pheno$bin))[cross$pheno$bin == 0,]
+dfs <- data.frame(cbind( genos,gcolr,cross$pheno$bin))
+
+table(apply(dfr, 1,paste0,collapse=""))
+
+red = 1 = RR at AHRb
+green = 2 = RS at AHRb
+blue = 3 = SS at AHRb

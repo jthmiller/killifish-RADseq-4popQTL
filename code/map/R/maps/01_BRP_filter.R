@@ -1,4 +1,6 @@
 #!/bin/R
+setwd('/home/jmiller1/QTL_agri')
+basedir <- "/Users/jeffreymiller/Documents/Projects/Killifish/QTL_agri"
 
 pop <- 'BRP'
 source("/home/jmiller1/QTL_agri/MAP/R/control_file.R")
@@ -93,7 +95,7 @@ keeps <- rownames(summary(prescan_bin))
 linked_marks <- function(cross, X, LOD = 8, RF = 0.1){
  crossX <- est.rf(subset(cross, chr=X))
  crossX <- formLinkageGroups(crossX, max.rf = RF, min.lod = LOD, reorgMarkers = TRUE)
- a <- markernames(crossX, chr=1:2)
+ a <- markernames(crossX, chr=1:4)
  b <- markernames(crossX, chr=2)
  return(list(keep=a,switch=b))
 }

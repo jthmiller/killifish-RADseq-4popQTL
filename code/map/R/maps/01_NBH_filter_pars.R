@@ -264,7 +264,8 @@ i <- 95 ; plotit(cross.cons,'cross_linked_sw')
 ################################################################################
 mapfile <- paste0(pop,'_many_filt_refined_switch')
 filename <- file.path(mpath,mapfile)
-write.cross(cross.many, filestem=filename, format="csv")
+#write.cross(cross.many, filestem=filename, format="csv")
+cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 
 mapfile <- paste0(pop,'_cons_filt_refined_switch')
 filename <- file.path(mpath,mapfile)

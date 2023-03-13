@@ -1,10 +1,10 @@
 
 #!/bin/R
 ### Map QTLs 1 of 3
-pop <- 'ELR'
+pop <- 'NBH'
 debug.cross <- T
 basedir <- '/home/jmiller1/QTL_Map_Raw/popgen'
-
+setwd('/home/jmiller1/QTL_agri')
 #source("/home/jmiller1/QTL_agri/MAP/control_file.R")
 source("/home/jmiller1/QTL_agri/MAP/R/control_file.R")
 
@@ -12,33 +12,7 @@ library('qtl')
 mpath <- '/home/jmiller1/QTL_agri/data'
 
 
-
-
-
-genos <- colnames(pheno.csv)[4:6]
-
-
-
-
-
-fl <- file.path(mpath,'ELR_unmapped_added_markers.csv')
-
-cross <- read.cross(
- file = fl,
- format = "csv", genotypes=c("AA","AB","BB"), alleles=c("A","B"),
- estimate.map = FALSE
-)
-
-
-
-
-
-
-
-
-
-
-
+### Add in the genotypes performed by whoi
 add.genotypes(cross, pheno.csv, phenos, genos){
     cross.genos <- cross$geno
 
@@ -67,12 +41,7 @@ add.genotypes(cross, pheno.csv, phenos, genos){
 #1,0,ELR_10972,NA,NA,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
 
 
-pheno.csv <- read.csv('/home/jmiller1/QTL_agri/data/allpop_pheno_whoiGT.csv')
-rownames(pheno.csv) <- pheno.csv[,1]
-
-phenos <- colnames(pheno.csv)[1:3]
-
-add.ungenotyped.ind(cross, pheno.csv, phenos, filename, pop){
+add.ungenotyped.ind <- function(cross, pheno.csv, phenos, filename, pop){
 
     cross.phenos <- cross$pheno
     rownames(cross.phenos) <- cross.phenos$ID 
@@ -103,11 +72,8 @@ add.ungenotyped.ind(cross, pheno.csv, phenos, filename, pop){
     empty.genos <- rep('-',sum(nmar(cross)))
     names(empty.genos) <- markernames(cross)
 
-
-
-    file <- '~/testcat'
     ## write cross object with new pheno, and then append new individuals
-    write.cross(cross, format="csv", filestem = file )
+    write.cross(cross, format="csv", filestem = filename )
 
 
     # bind together phenos and empty genos, append to file
@@ -115,13 +81,13 @@ add.ungenotyped.ind(cross, pheno.csv, phenos, filename, pop){
     
         text <- paste(unlist(c(new.pheno[id,],empty.genos)), collapse = ',')
 
-        cat(text , file = paste0(file,'.csv'), sep = "\n", fill = F, labels = NULL, append = T)
+        cat(text , file = paste0(filename,'.csv'), sep = "\n", fill = F, labels = NULL, append = T)
 
         }
     )
 
     cross <- read.cross(
-        file = paste0(file,'.csv'),
+        file = paste0(filename,'.csv'),
         format = "csv", genotypes=c("AA","AB","BB"), alleles=c("A","B"),
         estimate.map = FALSE
     )
@@ -132,22 +98,18 @@ add.ungenotyped.ind(cross, pheno.csv, phenos, filename, pop){
 
 
 
+pheno.csv <- read.csv('/home/jmiller1/QTL_agri/data/allpop_pheno_whoiGT.csv')
+rownames(pheno.csv) <- pheno.csv[,1]
+phenos <- colnames(pheno.csv)[1:3]
 
+## cross
+pop <- 'NBH'
+mapfile <- paste0(pop,'_reorder_noimp_nopar')
+filename <- file.path(mpath,mapfile)
+cross <- read.cross(file = paste0(mapfile,'.csv'), format = "csv", dir=mpath, genotypes=c("AA","AB","BB"), alleles=c("A","B"),estimate.map = FALSE)
 
-##cross$pheno <- cross$pheno[,colnames(cross$pheno)[c(1:5,7)]]
-
-
-    ## Add new phenotype to current 
-    
-
-    ## Write old cross
-
-
-    ## Append new individuals
-
-
-    ## If new loci, append those
-
-}
-
-
+## ug cross
+pop <- 'NBH' 
+mapfile <- paste0(pop,'_ungenotyped')
+filename <- file.path(mpath,mapfile)
+cross_ug <- add.ungenotyped.ind(cross = cross, pheno.csv = pheno.csv, phenos = phenos, filename = filename, pop = 'NBH')

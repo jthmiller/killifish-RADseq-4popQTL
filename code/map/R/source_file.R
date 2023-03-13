@@ -763,8 +763,8 @@ rels <- function(X){
 }
 mega.cross <- function(pope){
   pop <- pope
-  basedir <- '/home/jmiller1/QTL_Map_Raw/popgen'
-  indpops <- file.path(basedir,'plinkfiles/ind.pops')
+
+  indpops <- file.path('/home/jmiller1/QTL_Map_Raw/popgen/plinkfiles/ind.pops')
 
   cross <- read.cross.jm(file=file.path(indpops,paste(pop,'.unphased.f2.csvr',sep='')),
     format='csvr', geno=c(1:3),estimate.map=FALSE)
@@ -1518,11 +1518,13 @@ thin_by_radtag <- function(cross_in = cross30, dist = 1){
 }
 ####################################################################################
 
-plotit <- function(crs,nme='test'){
+plotit <- function(crs,nme='test', marker = NA){
  Y <- c(0, as.numeric(gsub(".*:","",markernames(crs))))/1000000
  X <- 1:length(Y)
  gt <- geno.table(crs)
  sm <- scanone(crs, pheno.col=4, model="binary",method="mr")
+
+ ab <- which(markernames(crs) == marker)
 
  png(paste0('~/public_html/',pop,'_',i,'_',nme,'.png'),height=1500,width=2500)
  par(mfrow=c(4,1))
@@ -1533,7 +1535,7 @@ plotit <- function(crs,nme='test'){
   #crs$pheno$gtps <- rowSums(pull.geno(cross))
   geno.image(crs, reorder=6, cex=2)
   plot(c(1,length(X)),c(0,max(Y)),type="n", xlab=paste('chr',i), ylab='physical position')
-  ##abline(h=27.504907, col='red')
+  abline(v=ab, col='red')
   points(X,Y,pch=19)
  dev.off()
 

@@ -1,0 +1,85 @@
+> summary(fit_hk_bin_noperm)
+
+                fitqtl summary
+
+Method: Haley-Knott regression 
+Model:  binary phenotype
+Number of observations : 91 
+
+Full model result
+----------------------------------  
+Model formula: y ~ Q1 + Q2 + Q3 
+
+      df      LOD     %var Pvalue(Chi2)
+Model  6 24.58902 71.18743            0
+
+
+Drop one QTL at a time ANOVA table: 
+----------------------------------  
+        df    LOD  %var Pvalue(Chi2)    
+2@47.4   2 12.602 25.71      2.5e-13 ***
+8@34.6   2 24.611 71.30      < 2e-16 ***
+18@36.6  2  5.999 10.22      1.0e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Estimated effects:
+-----------------
+               est       SE      t
+Intercept -0.01825  0.76895 -0.024
+2@47.4a   -5.28626  2.15886 -2.449
+2@47.4d    2.84009  2.26594  1.253
+8@34.6a    2.56584  1.55248  1.653
+8@34.6d   -0.95797  1.70824 -0.561
+18@36.6a   5.76120  2.58094  2.232
+18@36.6d   2.02556  2.47340  0.819
+
+
+
+
+### With Ungenotyped data and stratified permutations
+
+> qtl.add_ug_bin_hk
+            chr  pos   lod
+2:37557391    2 46.8 20.29
+8:6576399     8 34.6  5.39
+18:17816908  18 36.6  7.65
+
+
+> summary(fit_hk_bin_ug)
+
+                fitqtl summary
+
+Method: Haley-Knott regression
+Model:  binary phenotype
+Number of observations : 270
+
+Full model result
+----------------------------------
+Model formula: y ~ Q1 + Q2 + Q3
+
+      df      LOD     %var Pvalue(Chi2)
+Model  6 27.48257 37.42146            0
+
+
+Drop one QTL at a time ANOVA table:
+----------------------------------
+        df     LOD   %var Pvalue(Chi2)
+2@46.8   2 18.8173 23.682      < 2e-16 ***
+8@9.4    2  0.9491  1.021        0.112
+18@37.8  2  5.0229  5.598     9.49e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Estimated effects:
+-----------------
+              est      SE      t
+Intercept  1.0335  0.1660  6.226
+2@46.8a   -6.3183  2.3931 -2.640
+2@46.8d    2.6698  2.5920  1.030
+8@9.4a     2.2368  1.6368  1.367
+8@9.4d    -0.8216  1.9018 -0.432
+18@37.8a   4.6652  2.1852  2.135
+18@37.8d   1.5828  2.2612  0.700
